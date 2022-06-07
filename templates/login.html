@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link href="/grade_list.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block page_content %}
+<div class="paper">
+    <form class="grade-form" action="/action/grade/add" method="post">
+        <label>学生：</label>
+        <select name="stu_sn">
+            <option value="">--选择--</option>
+            {% for student in students %}
+            <option value="{{student.sn}}">
+                {{student.name}}({{student.sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>课程：</label>
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for course in courses %}
+            <option value="{{course.sn}}">
+                {{course.name}}({{course.sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>成绩：</label>
+        <input type="text" name="grade" />
+
+        <input type="submit" value="添加成绩" />
+    </form>
+    <hr />
+    <table>
+        <tr>
+            <th>姓名</th>
+            <th>课程</th>
+            <th>成绩</th>
+            <th>操作</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item[0].name }}</td>
+            <td>{{ item[1].name }}</td>
+            <td>{{ item[2].grade }}</td>
+            <td>
+                <div class="ctrlbar">
+                    <div class="btn">
+                        <a href="/grade/edit/{{item[0].sn}}/{{item[1].sn}}">
+                            修改
+                        </a>
+                    </div>
+                    <div class="btn">
+                        <a href="/grade/delete/{{item[0].sn}}/{{item[1].sn}}">
+                            删除
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

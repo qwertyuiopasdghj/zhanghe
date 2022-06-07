@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+<!--  -->
+{% block styles %} {% endblock %}
+
+<!--  -->
+{% block page_content %}
+<div class="paper">
+    <form action="/action/student/edit/{{stu_sn}}" method="post">
+        学号：<input type="text" name="no" value="{{student.no}}" />
+        <br/>
+        姓名：<input type="text" name="name" value="{{student.name}}" />
+        <br/>
+        性别：<input type="text" name="gender" value="{{student.gender}}" />
+        <br/>
+        学院：<input type="text" name="school" value="{{student.school}}" />
+        <br/>
+        学级：<input type="text" name="year" value="{{student.year}}" />
+        <br/>
+        班级：<input type="text" name="clazz" value="{{student.clazz}}" />
+        <br/>
+        <input type="submit" value="修改" />
+    </form>
+    <hr />
+    <a href="/student"> 回到学生列表 </a>
+</div>
+{% endblock %}

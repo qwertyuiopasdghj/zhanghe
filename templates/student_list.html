@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    <link href="/grade_list.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block page_content %}
+<div class="paper">
+    <form class="grade-form" action="/action/student/add" method="post">
+        <label>学号：</label>
+        <input type="text" name="no" />
+        <label>姓名：</label>
+        <input type="text" name="name" />
+        <label>性别：</label>
+        <select name="gender">
+            <option value="">--选择--</option>
+            <option value="男">
+                男
+            </option>
+            <option value="女">
+                女
+            </option>
+        </select>
+        <br/>
+        <label>学院：</label>
+        <input type="text" name="school" />
+        <label>学级：</label>
+        <input type="text" name="year" />
+        <label>班级：</label>
+        <input type="text" name="clazz" />
+        <br/>
+
+        <input type="submit" value="添加学生" />
+    </form>
+    <hr />
+    <form class="grade-form" action="/action/student/search" method="post">
+        <label>学号：</label>
+        <input type="text" name="stu_no" />
+        <label>课程名：</label>
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for course in courses %}
+            <option value="{{course.sn}}">
+                {{course.name}}({{course.sn}})
+            </option>
+            {% endfor %}
+        </select>
+        <label>学期：</label>
+        <select name="cou_semester">
+            <option value="">--选择--</option>
+            {% for semester in semesters %}
+            <option value="{{semester}}">
+                {{semester}}
+            </option>
+            {% endfor %}
+        </select>
+        <br/>
+        <input type="submit" value="检索学生" />
+    </form>
+    <hr />
+
+    <table>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>学院</th>
+            <th>学级</th>
+            <th>班级</th>
+            <th>操作</th>
+        </tr>
+        {% for item in students %}
+        <tr>
+            <td>{{ item.no }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.gender }}</td>
+            <td>{{ item.school }}</td>
+            <td>{{ item.year }}</td>
+            <td>{{ item.clazz }}</td>
+            <td>
+                <div class="ctrlbar">
+                    <div class="btn">
+                        <a href="/student/edit/{{item.sn}}">
+                            修改
+                        </a>
+                    </div>
+                    <div class="btn">
+                        <a href="/student/delete/{{item.sn}}">
+                            删除
+                        </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

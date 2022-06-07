@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link href="/grade_list.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block page_content %}
+<div class="paper">
+    <table>
+        <tr>
+            <th>课程名</th>
+            <th>课程号</th>
+            <th>学分</th>
+            <th>学时</th>
+            <th>学期</th>
+            <th>课程班</th>
+            <th>选课人数</th>
+        </tr>
+        {% for item in courses %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.no }}</td>
+            <td>{{ item.credit }}</td>
+            <td>{{ item.class_hours }}</td>
+            <td>{{ item.semester }}</td>
+            <td>{{ item.sub_class }}</td>
+            <td>{{item.selected}}/{{item.capacity}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="footer">
+        <div class="btn" align="left" style="float:left" >
+            <form
+                action="/action/course/selection?{{query}}"
+                method="post"
+            >
+                <label>输入学号确认选择</label>
+                <input type="text" name="stu_no" />
+                <input type="submit" value="确认" />
+            </form>
+        </div>
+        <div class="btn" align="right" style="float:left">
+            <a href="/course">返回</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

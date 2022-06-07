@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<link href="/grade_list.css" rel="stylesheet" />
+{% endblock %}
+
+
+{% block page_content %}
+<div class="paper">
+    {% if add_course|default(1) != 0 %}
+    <form class="grade-form" action="/action/course/add" method="post">
+        <label>课程名：</label>
+        <input type="text" name="name" />
+        <label>课程号：</label>
+        <input type="text" name="no" />
+        <br/>
+        <label>学分：</label>
+        <input type="text" name="credit" />
+        <label>学时：</label>
+        <input type="text" name="class_hours" />
+        <label>学期：</label>
+        <input type="text" name="semester" />
+        <br/>
+        <label>课程班：</label>
+        <input type="text" name="sub_class" />
+        <br/>
+        <label>老师：</label>
+        <input type="text" name="teacher" />
+        <br/>
+        <label>时间：</label>
+        <input type="text" name="time" />
+        <br/>
+        <label>地点：</label>
+        <input type="text" name="location" />
+        <br/>
+        <label>容量：</label>
+        <input type="text" name="capacity" />
+        <br/>
+        <input type="submit" value="添加课程" />
+    </form>
+    {% endif %}
+    <hr />
+    <form class="grade-form" action="/action/course/search" method="post">
+        <label>课程名：</label>
+        <input type="text" name="name" />
+        <input type="submit" value="搜索课程" />
+    </form>
+    <hr />
+    <table>
+        <tr>
+            <th>课程名</th>
+            <th>课程号</th>
+            <th>学分</th>
+            <th>学时</th>
+            <th>学期</th>
+            <th>课程班</th>
+            <th>老师</th>
+            <th>时间</th>
+            <th>地点</th>
+            <th>选课人数</th>
+            <th>操作</th>
+        </tr>
+        {% for item in courses %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.no }}</td>
+            <td>{{ item.credit }}</td>
+            <td>{{ item.class_hours }}</td>
+            <td>{{ item.semester }}</td>
+            <td>{{ item.sub_class }}</td>
+            <td>{{ item.teacher }}</td>
+            <td>{{ item.location }}</td>
+            <td>{{ item.time }}</td>
+            <td>{{item.selected}}/{{item.capacity}}</td>
+            <td>
+                <div class="ctrlbar">
+                    <div class="btn">
+                        <a href="/course/edit/{{item.sn}}">
+                            修改
+                        </a>
+                    </div>
+                    <div class="btn">
+                        <a href="/course/delete/{{item.sn}}">
+                            删除
+                        </a>
+                    </div>
+                    {% if item.selected >= item.capacity %}
+                    <label class="btn"><input type="checkbox" id="course_selection" value="{{item.sn}}" disabled="true"/>选课</label>
+                    {% else %}
+                    <label class="btn"><input type="checkbox" id="course_selection" value="{{item.sn}}"/>选课</label>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button class="btn" type="button" onclick="displayResult()">提交选课请求</button>
+    {% if add_course|default(1) == 0 %}
+        <div class="btn">
+            <a href="/course">返回</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

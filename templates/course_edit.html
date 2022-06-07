@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+<!--  -->
+{% block styles %} {% endblock %}
+
+<!--  -->
+{% block page_content %}
+<div class="paper">
+    <form action="/action/course/edit/{{cou_sn}}" method="post">
+        课程名：<input type="text" name="name" value="{{course.name}}" />
+        <br/>
+        课程号：<input type="text" name="no" value="{{course.no}}" />
+        <br/>
+        学分：<input type="text" name="credit" value="{{course.credit}}" />
+        <br/>
+        学时：<input type="text" name="class_hours" value="{{course.class_hours}}"/>
+        <br/>
+        学期： <input type="text" name="semester" value="{{course.semester}}"/>
+        <br/>
+        课程班： <input type="text" name="sub_class" value="{{course.sub_class}}"/>
+        <br/>
+        容量： <input type="text" name="capacity" value="{{course.capacity}}"/>
+        <br/>
+        老师： <input type="text" name="teacher" value="{{course.teacher}}"/>
+        <br/>
+        时间： <input type="text" name="time" value="{{course.time}}"/>
+        <br/>
+        地点： <input type="text" name="location" value="{{course.location}}"/>
+        <br/>
+        <input type="submit" value="修改" />
+    </form>
+    <hr />
+    <a href="/course"> 回到课程列表 </a>
+</div>
+{% endblock %}
